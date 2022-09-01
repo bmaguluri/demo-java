@@ -10,7 +10,7 @@ resources:
   repositories:
   - repository: templates
     type: git
-    name: 'CSCDevopsTest/GitTemplates'
+    name: 'Ado-Test/GitTemplates'
     ref: master
 
 pool:
