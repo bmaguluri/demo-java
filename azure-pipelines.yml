@@ -13,7 +13,7 @@ resources:
     name: 'GitTemplates'
 
 stages
-- stage: "CI_Checks_Execution"
+  - stage: "CI_Checks_Execution"
     jobs:
       - job: "KickCIChecks"
         steps:
