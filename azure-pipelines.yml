@@ -6,6 +6,20 @@
 trigger:
 - main
 
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    name: 'GitTemplates'
+
+stages
+- stage: "CI_Checks_Execution"
+    jobs:
+      - job: "KickCIChecks"
+        steps:
+        - template: templates/homebrew.yml@templates
+        - template: templates/gitleaks.yml@templates
+        - template: templates/json-lint.yml@templates
 pool:
   vmImage: ubuntu-latest
 
