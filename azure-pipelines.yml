@@ -21,6 +21,7 @@ stages:
     jobs:
       - job: "GitLeaks"
         steps:
+        - checkout: self
         - template: templates/homebrew.yml@templates
         - template: templates/gitleaks.yml@templates
         - template: templates/json-lint.yml@templates
@@ -29,6 +30,7 @@ stages:
     jobs:
       - job: " Build Java project"
         steps:
+        
         - task: Maven@3
           inputs:
             mavenPomFile: 'pom.xml'
