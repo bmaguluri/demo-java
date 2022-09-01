@@ -12,6 +12,9 @@ resources:
     type: git
     name: 'GitTemplates'
 
+pool:
+  vmImage: ubuntu-latest
+
 stages:
   - stage: "CI_Checks_Execution"
     jobs:
@@ -20,17 +23,17 @@ stages:
         - template: templates/homebrew.yml@templates
         - template: templates/gitleaks.yml@templates
         - template: templates/json-lint.yml@templates
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+  - stage: "Build Java"
+    jobs:
+      - job: " Build Java project"
+        steps:
+        - task: Maven@3
+          inputs:
+            mavenPomFile: 'pom.xml'
+            mavenOptions: '-Xmx3072m'
+            javaHomeOption: 'JDKVersion'
+            jdkVersionOption: '1.8'
+            jdkArchitectureOption: 'x64'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+            goals: 'package'
